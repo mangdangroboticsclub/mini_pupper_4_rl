@@ -28,7 +28,7 @@ defaults to the policy's own robot).
 ## Install
 
 ```bash
-git clone https://github.com/mangdang-bam/mini_pupper_4_rl.git && cd mini_pupper_4_rl
+git clone https://github.com/mangdangroboticsclub/mini_pupper_4_rl.git && cd mini_pupper_4_rl
 bash scripts/install/install.sh        # installs mp4-sim v0.2.0 too; see docs/INSTALL.md
 CUDA_VISIBLE_DEVICES="" .venv/bin/python -m pytest tests/cpu         # no GPU needed
 ```
