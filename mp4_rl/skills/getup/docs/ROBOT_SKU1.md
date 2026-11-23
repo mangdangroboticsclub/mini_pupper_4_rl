@@ -32,7 +32,10 @@ on its feet; once the robot is upright, the walker takes over again.
 
 ## What was measured
 
-With `mp4_rl/skills/walker/policies/sku1` and `mp4_rl/skills/getup/policies/sku1` on the robot's ESP32; each take is one run. Get-up
+The get-up in `mp4_rl/skills/getup/policies/sku1` has not run on the robot yet, and it needs the firmware's knee-target
+limit; the get-up rows below were measured with the previous get-up.
+
+With `mp4_rl/skills/walker/policies/sku1` and the previous get-up on the robot's ESP32; each take is one run. Get-up
 times come from the firmware's get-up log, speeds from the distance on a tape measure over the run's time, turn rates
 from the angle turned over the run's time.
 

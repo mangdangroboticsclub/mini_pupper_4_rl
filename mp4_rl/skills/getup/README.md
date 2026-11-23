@@ -20,7 +20,7 @@ the ESP32).
 | Robot | Policy | Inputs | Outputs | Network | Trained for |
 |---|---|---|---|---|---|
 | SKU2 | [`policies/sku2`](policies/sku2) | 45: one frame (gravity, gyro, joint positions and velocities, last action, the phase clock) | 12 joint targets about the stand (±90° abduction, ±180° hip and knee), through a target filter | 512-256-128, ELU, with an input normaliser | getting up from the back, either side, nose down, crouched, mid-fall and random poses, on flat and rough ground and the printed stairs, with a random load on the hood |
-| SKU1 | [`policies/sku1`](policies/sku1) | the same | the same | the same | the same starts on the SKU1's plant, its display as a collision box, with and without the SKU1's lidar |
+| SKU1 | [`policies/sku1`](policies/sku1) | the same | the same | the same | the same starts on the SKU1's plant, its display as a collision box, with and without the SKU1's lidar; then with the knee's reachable range at large thigh angles modelled in simulation |
 
 Both run at 50 Hz. The phase clock φ runs from 0 to 1 over the first 4 s of a get-up and stays at 1; the policy sees
 φ, sin 2πφ and cos 2πφ in place of the walker's command. Each policy folder holds
@@ -35,7 +35,9 @@ flowchart LR
   ft2 --> ckpt2[/"checkpoints/sku2/getup/<br/>model_7543.pt"/]
   ckpt2 -->|export| pol2(["policies/sku2"])
   start --> ft1["sku1/finetune.sh<br/>SKU1 plant, display box, lidar<br/>seed 71, 1000 it."]
-  ft1 --> ckpt1[/"checkpoints/sku1/getup/<br/>model_7543.pt"/]
+  ft1 --> mid1[/"model_7543.pt"/]
+  mid1 --> ft1b["knee's reachable range<br/>at large thigh angles<br/>seed 83, 500 it."]
+  ft1b --> ckpt1[/"checkpoints/sku1/getup/<br/>model_8042.pt"/]
   ckpt1 -->|export| pol1(["policies/sku1"])
 ```
 
@@ -92,9 +94,14 @@ tools/deploy.sh ubuntu@PI walk
 | SKU2 | `recipes/sku2/finetune.sh` | `checkpoints/sku2/getup_start/model_6544.pt` | 72 | 1000 | `runs/getup_finetune/` |
 | SKU1 | `recipes/sku1/finetune.sh` | `checkpoints/sku2/getup_start/model_6544.pt` | 71 | 1000 | `runs/getup_sku1/` |
 
-`checkpoints/sku2/getup/model_7543.pt` and `checkpoints/sku1/getup/model_7543.pt` are their last checkpoints:
-`policies/sku2` and `policies/sku1` were exported from them. Each script takes `[SEED] [PARENT] [ITERS]`, and `ENVS`,
-`OUT` and `EXTRA` from the environment; its header lists every setting. On an RTX 5080 a fine-tune takes 2.5-2.7 h.
+`checkpoints/sku2/getup/model_7543.pt` is the SKU2 recipe's last checkpoint, and `policies/sku2` was exported from it.
+`checkpoints/sku1/getup/model_8042.pt`, exported as `policies/sku1`, is 500 iterations (seed 83) from the SKU1 recipe's
+last checkpoint, model_7543, trained with the knee's reachable range at large thigh angles modelled in simulation, an
+option not in this repository yet. In simulation (seeds 23 and 24) it gets up from every start in at least 99.8 % of
+the robots, on flat ground and with the lidar, also at 16 bits with 20 ms of added delay.
+
+Each script takes `[SEED] [PARENT] [ITERS]`, and `ENVS`, `OUT` and `EXTRA` from the environment; its header lists every
+setting. On an RTX 5080 a fine-tune takes 2.5-2.7 h.
 These are the settings of the shipped policies, not a promise of the same numbers: a run's result depends on its seed and
 the machine.
 
@@ -163,7 +170,8 @@ With `policies/sku2` and the walker's `policies/sku2`, run by the runner on the 
 
 ### SKU1
 
-With `policies/sku1` and the walker's `policies/sku1`, on the robot's ESP32:
+With the previous get-up (model_7543) and the walker's `policies/sku1`, on the robot's ESP32; the current
+`policies/sku1` has not run on the robot yet:
 
 | | Takes | Result |
 |---|---|---|
@@ -240,7 +248,7 @@ of the final checkpoint (`checkpoints/sku2/getup/model_7543.pt`) gives the same 
 `--from-policy` copy: the file that ran on the robot, re-exported for the published calibration file with its network
 unchanged. For the SKU1, `--from-policy policies/sku1` gives the same arrays and metadata (plus
 `source_policy_sha256`) and byte-identical copies of the other files, and an export of
-`checkpoints/sku1/getup/model_7543.pt` gives the shipped `policy.npz` byte for byte (its `config.json` then holds only the
+`checkpoints/sku1/getup/model_8042.pt` gives the shipped `policy.npz` byte for byte (its `config.json` then holds only the
 checkpoint's options). `tests/cpu/test_policies.py` checks all of them against the shipped folders:
 
 ```sh

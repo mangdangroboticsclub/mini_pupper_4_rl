@@ -23,30 +23,30 @@ ARRAYS = {
     ("walker", "sku2"): "e301f53fa9cd1985b7984c78b0ed37313d742ca519922b358692965d85ae5efa",
     ("getup", "sku2"): "c1eb8ab20780a51e9e9cc19bb54ddd0f3eb1482dbc04103968b2d0ce9a806e00",
     ("walker", "sku1"): "1fda4e6b55cf37c49219e8a74fe25492e05a4236d5a8b38fa686a90798179cd4",
-    ("getup", "sku1"): "7d7f33f074a2b41d45c67f07ca512e2b3a66a38f393840135be9aba0cd636e6e",
+    ("getup", "sku1"): "42d4381c0165c6a6a91265241238fc6e8b90f3cdf2c37ff0b367de7a3d087857",
 }
 # the policy files' bytes (they are never written again: a re-export must reproduce the arrays and the meta)
 NPZ = {
     ("walker", "sku2"): "5f7f2d70864c377c87aef3ae7546ed9def5c7deac862e21b22644c6a083372dd",
     ("getup", "sku2"): "6b537110f8924d66a648882b2ddc24b065a39450b718c9731f1ab57b91be5c6d",
     ("walker", "sku1"): "0168c007d4c7a6d56495d64725cecdbade39dd18c31929f65952094a6727a492",
-    ("getup", "sku1"): "563f3c6b6a400d205d9aa7ad1e3327e58c43566617c9b28ec6c5042216d7d95f",
+    ("getup", "sku1"): "ee2872b2e07aa7fd0d80578e61aee6aa18215079a7d9807ba3b8f480725c9417",
 }
 POLICIES = list(ARRAYS)
 FINAL = {("walker", "sku2"): "sku2/walker/model_10793.pt", ("getup", "sku2"): "sku2/getup/model_7543.pt",
-         ("walker", "sku1"): "sku1/walker/model_11792.pt", ("getup", "sku1"): "sku1/getup/model_7543.pt"}
+         ("walker", "sku1"): "sku1/walker/model_11792.pt", ("getup", "sku1"): "sku1/getup/model_8042.pt"}
 # each policy's final checkpoint, and the checkpoints the recipes start from, by (skill, path in its checkpoints/):
 # (iteration, an observation normaliser) and sha256
 CHECKPOINTS = {("walker", "sku2/walker/model_10793.pt"): (10793, False), ("getup", "sku2/getup/model_7543.pt"): (7543, True),
                ("walker", "sku2/walker_start/model_6297.pt"): (6297, False),
                ("getup", "sku2/getup_start/model_6544.pt"): (6544, True),
-               ("walker", "sku1/walker/model_11792.pt"): (11792, False), ("getup", "sku1/getup/model_7543.pt"): (7543, True)}
+               ("walker", "sku1/walker/model_11792.pt"): (11792, False), ("getup", "sku1/getup/model_8042.pt"): (8042, True)}
 SHA = {("walker", "sku2/walker/model_10793.pt"): "290793f29f483421b0504a752cfdf4fb7b461ad37fbd0b48882f6ea9affd2712",
        ("getup", "sku2/getup/model_7543.pt"): "2ebb10d46af9561ee684a13362a5febf3afc734eba9cfa94abfc22e223f9ddc7",
        ("walker", "sku2/walker_start/model_6297.pt"): "33cc59eb3bf1c7384dea50263c719b522cae5bece5997fcf87acbf879f42c4ca",
        ("getup", "sku2/getup_start/model_6544.pt"): "690dd19d9e627e224d07bd581dae399c79b7e94afaf274d128bed8aa889f6c99",
        ("walker", "sku1/walker/model_11792.pt"): "b715fa03d141b467e7a3157e4e294248d1d9f4631ca652eb3aa0f8c94a786fac",
-       ("getup", "sku1/getup/model_7543.pt"): "3bf8bef6b18d534f4c50c2017f91ccd56e493c1a6d66d93852f0fa4d30d1079b"}
+       ("getup", "sku1/getup/model_8042.pt"): "9acd1c2e194f6883464a0e8e58fb181fe675af379caf697c781cf3440149b8c5"}
 
 
 def ids(p) -> str:

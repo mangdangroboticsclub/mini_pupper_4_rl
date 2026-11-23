@@ -1,8 +1,9 @@
 #!/bin/sh
 # Fine-tune the get-up for the SKU1: resume the get-up's starting checkpoint on the SKU1's simulated plant, with the
 # settings of the SKU2's get-up fine-tune (mp4_rl/skills/getup/recipes/sku2/finetune.sh) except the plant and the load on top.
-# This recipe trained the shipped SKU1 get-up (mp4_rl/skills/getup/checkpoints/sku1/getup/model_7543.pt: seed 71, 1000
-# iterations from model_6544).
+# This recipe trained model_7543 (seed 71, 1000 iterations from model_6544), the parent of the shipped SKU1 get-up
+# (mp4_rl/skills/getup/checkpoints/sku1/getup/model_8042.pt: 500 iterations more, seed 83, with the knee's reachable
+# range at large thigh angles modelled in simulation, an option not in this repository yet).
 #
 #   sh mp4_rl/skills/getup/recipes/sku1/finetune.sh [SEED] [PARENT] [ITERS]
 #
