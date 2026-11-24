@@ -12,9 +12,8 @@
 </p>
 
 A walking policy for the Mini Pupper v4 (top row the SKU2, bottom row the SKU1, in simulation): walks in every
-direction, turns in place and rides out shoves; in simulation it also climbs the printed stairs (25 mm risers, 50 mm
-treads) and walks on rough ground. It runs on its own, or with the [get-up](../getup/README.md), which takes over after
-a fall.
+direction, turns in place and rides out shoves; in simulation it also climbs stairs and walks on rough ground. 
+It runs on its own, or with the [get-up](../getup/README.md), which takes over after a fall.
 
 ## Policies
 
